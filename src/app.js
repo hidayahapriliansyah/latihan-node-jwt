@@ -7,7 +7,8 @@ const authRoutes = require('./routes/authRoutes');
 const app = express();
 
 // middleware
-const static = app.use(express.static(`${__dirname}/public`));
+app.use(express.static(`${__dirname}/public`));
+app.use(express.json());
 
 // connect to db
 const dbURI = `mongodb+srv://${process.env.MONGOOSE_ATLAS_USERNAME}:${process.env.MONGOOSE_ATLAS_PASSWORD}@latihan-node-auth.dvncngo.mongodb.net/latihan-node-auth`;
