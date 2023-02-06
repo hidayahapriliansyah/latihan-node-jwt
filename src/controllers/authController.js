@@ -42,6 +42,7 @@ const signup_post = async (req, res) => {
   try {
     const user = await User.create({ email, password });
     res.status(201).json({user: user._id});
+    res.redirect('/login');
   } catch (err) { 
     const errors = handleErrors(err);
     res.status(400).json({ errors });
