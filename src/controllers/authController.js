@@ -1,5 +1,17 @@
 const User = require('../models/User');
 
+const handleErrors = (err) => {
+  let errors = { email: '', password: '' };
+
+  if (err.message.includes('user validation failed')) {
+    Object.values(err.errors).forEach((error) => {
+      errors[error.path] = error.message;
+    });
+  }
+
+  return errors;
+};
+
 const signup_get = (req, res) => {
   res.render('signup');
 };
@@ -11,10 +23,9 @@ const signup_post = async (req, res) => {
     const user = await User.create({ email, password });
     console.log(user);
   } catch (err) { 
-    console.log(err);
+    const errors = handleErrors(err);
+    res.status(400).json({ errors });
   }
-
-  res.send('signup post');
 };
 
 const login_get = (req, res) => {
