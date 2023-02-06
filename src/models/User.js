@@ -1,17 +1,19 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const { isEmail } = require('validator');
 
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
-    require: true,
+    require: [ true, 'Please insert the email' ],
     unique: true,
     lowercase: true,
+    validate: [ isEmail, 'Please insert valid email' ],
   },
   password: {
     type: String,
-    require: true,
-    minlength: 6,
+    require: [ true, 'Please insert the password' ],
+    minlength: [ 6, 'Password minimal length is 6' ],
   },
 });
 
@@ -30,7 +32,7 @@ userSchema.statics.login = async function({ email, password }) {
     } 
     throw Error('Password is incorrect');
   } else {
-    throw Error('This email is not registered.');
+    throw Error('This email is not registered');
   }
 };
 
