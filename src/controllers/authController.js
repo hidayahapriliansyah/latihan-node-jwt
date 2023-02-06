@@ -21,7 +21,16 @@ const login_get = (req, res) => {
   res.render('login');
 };
 
-const login_post = (req, res) => {
+const login_post = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.login({ email, password });
+    console.log(user, 'success');
+  } catch (err) {
+    console.log(err);
+  }
+
   res.send('login post');
 };
 
