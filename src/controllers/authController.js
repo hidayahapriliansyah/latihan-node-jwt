@@ -1,5 +1,5 @@
 const signup_get = (req, res) => {
-  res.send('signup get');
+  res.render('signup');
 };
 
 const signup_post = (req, res) => {
@@ -7,7 +7,7 @@ const signup_post = (req, res) => {
 };
 
 const login_get = (req, res) => {
-  res.send('login get');
+  res.render('login');
 };
 
 const login_post = (req, res) => {
