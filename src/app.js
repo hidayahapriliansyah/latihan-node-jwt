@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
 
-const { requireAuth } = require('./middleware/authMiddleware');
+const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 const authRoutes = require('./routes/authRoutes');
 
 const app = express();
@@ -25,6 +25,7 @@ app.set('view engine', 'ejs');
 app.set('views', `${__dirname}/views`);
 
 // routes
+app.get('*', checkUser);
 app.use(authRoutes);
 app.get('/', (req, res) => {
   res.render('home');
