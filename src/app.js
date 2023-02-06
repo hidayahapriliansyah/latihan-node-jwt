@@ -1,7 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
+
+const { requireAuth } = require('./middleware/authMiddleware');
 const authRoutes = require('./routes/authRoutes');
 
 const app = express();
@@ -9,6 +12,7 @@ const app = express();
 // middleware
 app.use(express.static(`${__dirname}/public`));
 app.use(express.json());
+app.use(cookieParser());
 
 // connect to db
 const dbURI = `mongodb+srv://${process.env.MONGOOSE_ATLAS_USERNAME}:${process.env.MONGOOSE_ATLAS_PASSWORD}@latihan-node-auth.dvncngo.mongodb.net/latihan-node-auth`;
@@ -22,7 +26,9 @@ app.set('views', `${__dirname}/views`);
 
 // routes
 app.use(authRoutes);
-
 app.get('/', (req, res) => {
   res.render('home');
+});
+app.get('/smoothies', requireAuth, (req, res) => {
+  res.render('smoothies');
 });

@@ -58,7 +58,7 @@ const login_post = async (req, res) => {
   try {
     const user = await User.login({ email, password });
     const token = createToken(user);
-    res.cookie('smoothie_token', token, { httpOnly: true, maxAge: maxAge * 3 });
+    res.cookie('smoothies_token', token, { httpOnly: true, maxAge: maxAge * 3 });
     res.status(200).json({user: user._id});
   } catch (err) {
     const errors = handleErrors(err);
