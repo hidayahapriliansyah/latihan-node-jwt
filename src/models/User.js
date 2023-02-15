@@ -37,5 +37,6 @@ userSchema.statics.login = async function({ email, password }) {
 };
 
 const User = mongoose.model('user', userSchema);
+// nama model 'user' akan mencocokan dengan nama collection di db
 
 module.exports = User;
